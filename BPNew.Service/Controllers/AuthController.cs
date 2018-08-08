@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
- 
+using Newtonsoft.Json.Linq;
 
 namespace BPNew.Service.Controllers
 {
@@ -88,6 +88,26 @@ namespace BPNew.Service.Controllers
             var user = await _userManager.FindByIdAsync(id);
 
             return user;
+        }
+
+        // POST api/auth/CreateAsync
+        [HttpPost("CreateAsync")]
+        public async Task<IActionResult> CreateAsync([FromBody]JObject UserModel)
+        {
+            IdentityResult res = null;
+            try
+            {
+                AppUser user = UserModel["user"].ToObject<AppUser>();
+                string password = UserModel["Password"].ToObject<string>();
+                res = await _userManager.CreateAsync(user, password);
+            }
+            catch (System.Exception ex)
+            {
+
+                throw;
+            }
+
+            return new OkObjectResult(res.Succeeded ? true : false);
         }
     }
 }
