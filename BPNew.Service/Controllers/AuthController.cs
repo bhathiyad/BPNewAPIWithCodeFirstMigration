@@ -80,6 +80,7 @@ namespace BPNew.Service.Controllers
         [HttpPost("findbyname")]
         public async Task<AppUser> FindByNameAysnc([FromBody]string name)
         {
+            _logger.LogInformation("***********************************************************************************************");
             _logger.LogInformation($"Name {name}");
 
             var user = await _userManager.FindByNameAsync(name);
