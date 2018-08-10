@@ -200,6 +200,7 @@ namespace BPNew.Service
 
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+            loggerFactory.AddEventSourceLogger();
         }
     }
 }
