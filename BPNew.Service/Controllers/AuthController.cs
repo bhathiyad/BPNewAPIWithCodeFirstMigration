@@ -24,7 +24,7 @@ namespace BPNew.Service.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
-        private readonly ILogger _logger;
+        private readonly ILogger<AuthController> _logger;
 
         public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, 
                                 IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, ILogger<AuthController> logger)

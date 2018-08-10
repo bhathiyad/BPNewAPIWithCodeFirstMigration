@@ -28,6 +28,7 @@ using Microsoft.IdentityModel.Tokens;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using BPNew.Service.Services.MeetingRepository;
+using Microsoft.Extensions.Logging.AzureAppServices;
 
 namespace BPNew.Service
 {
@@ -197,10 +198,10 @@ namespace BPNew.Service
                 //Log.Error(ex, "Failed to migrate or seed database");
             }
 
-
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
-            loggerFactory.AddEventSourceLogger();
+            loggerFactory.AddAzureWebAppDiagnostics(new AzureAppServicesDiagnosticsSettings
+            {
+                OutputTemplate = "{Timestamp:yyyy-MM-dd HH:mm:ss zzz} [{Level}] {RequestId}-{SourceContext}: {Message}{NewLine}{Exception}"
+            });
         }
     }
 }
