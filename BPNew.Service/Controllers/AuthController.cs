@@ -9,6 +9,7 @@ using BPNew.Service.Models.Entities;
 using BPNew.Service.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -23,13 +24,16 @@ namespace BPNew.Service.Controllers
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IJwtFactory _jwtFactory;
         private readonly JwtIssuerOptions _jwtOptions;
+        private readonly ILogger _logger;
 
-        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions)
+        public AuthController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager, 
+                                IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, ILogger<AuthController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _jwtFactory = jwtFactory;
             _jwtOptions = jwtOptions.Value;
+            _logger = logger;
         }
 
         // POST api/auth/login
@@ -76,6 +80,8 @@ namespace BPNew.Service.Controllers
         [HttpPost("findbyname")]
         public async Task<AppUser> FindByNameAysnc([FromBody]string name)
         {
+            _logger.LogInformation($"Name {name}");
+
             var user = await _userManager.FindByNameAsync(name);
 
             return user;
