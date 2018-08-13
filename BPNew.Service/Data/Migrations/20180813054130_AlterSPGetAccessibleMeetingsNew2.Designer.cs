@@ -4,14 +4,16 @@ using BPNew.Service.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BPNew.Service.Data.Migrations
 {
     [DbContext(typeof(AppDbMigrationContext))]
-    partial class AppDbMigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20180813054130_AlterSPGetAccessibleMeetingsNew2")]
+    partial class AlterSPGetAccessibleMeetingsNew2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1486,8 +1488,6 @@ namespace BPNew.Service.Data.Migrations
                     b.Property<int?>("Info3");
 
                     b.Property<string>("Info4");
-
-                    b.Property<string>("Info5");
 
                     b.Property<string>("Keyword")
                         .IsRequired()

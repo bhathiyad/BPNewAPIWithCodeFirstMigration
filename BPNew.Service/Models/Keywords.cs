@@ -26,6 +26,7 @@ namespace BPNew.Service.Models
         public string Info2 { get; set; }
         public int? Info3 { get; set; }
         public string Info4 { get; set; }
+        public string Info5 { get; set; }
 
         [InverseProperty("Keyword")]
         public ICollection<PaperKeywordTags> PaperKeywordTags { get; set; }
