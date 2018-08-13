@@ -18,6 +18,7 @@ namespace BPNew.Service.Models
         public byte RefType { get; set; }
         [Required]
         public string Comment { get; set; }
+        public string Comment2 { get; set; }
         public int CreatedBy { get; set; }
         [Column(TypeName = "datetime")]
         public DateTime CreatedDate { get; set; }

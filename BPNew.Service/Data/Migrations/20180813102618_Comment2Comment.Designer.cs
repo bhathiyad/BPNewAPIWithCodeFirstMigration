@@ -4,14 +4,16 @@ using BPNew.Service.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BPNew.Service.Data.Migrations
 {
     [DbContext(typeof(AppDbMigrationContext))]
-    partial class AppDbMigrationContextModelSnapshot : ModelSnapshot
+    [Migration("20180813102618_Comment2Comment")]
+    partial class Comment2Comment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
