@@ -88,7 +88,7 @@ namespace BPNew.Service
                 ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
 
                 ValidateAudience = true,
-                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)],
+                ValidAudience = jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)], //https://bpnewmvc.azurewebsites.net/
 
                 ValidateIssuerSigningKey = true,
                 IssuerSigningKey = _signingKey,
