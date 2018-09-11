@@ -29,6 +29,12 @@ using AutoMapper;
 using FluentValidation.AspNetCore;
 using BPNew.Service.Services.MeetingRepository;
 using Microsoft.Extensions.Logging.AzureAppServices;
+using BPNew.Service.Hubs;
+using BPNew.Service.Services.UserMgtRepository;
+using BPNew.Service.Services.MeetingTemplateRepository;
+using BPNew.Service.Services.CategoryRepository;
+using BPNew.Service.Services.SubCategoryRepository;
+using BPNew.Service.Services.TokenRepository;
 
 namespace BPNew.Service
 {
@@ -46,6 +52,10 @@ namespace BPNew.Service
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //Initialize SignalR Service
+            services.AddSignalR();
+
             //services.Configure<CookiePolicyOptions>(options =>
             //{
             //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -132,16 +142,38 @@ namespace BPNew.Service
             services.AddAutoMapper();
             services.AddMvc().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<Startup>());
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    builder1 =>
+                    {
+                        builder1
+                            .AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod()
+                            .AllowCredentials();
+                    });
+            });
 
             #region Application repository services registraion
             services.AddTransient<IMeetingRepository, MeetingRepository>();
+            services.AddTransient<IUserMgtRepository, UserMgtRepository>();
+            services.AddTransient<IMeetingTemplateRepository, MeetingTemplateRepository>();
+            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddTransient<ISubCategoryRepository, SubCategoryRepository>();
+            services.AddTransient<ITokenRepository, TokenRepository>();
             #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+
+            app.UseCors("AllowAllOrigins");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -180,6 +212,12 @@ namespace BPNew.Service
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            //Configure SignalR
+            app.UseSignalR(route =>
+            {
+
+                route.MapHub<SyncHub>("/synchub");
+            });
 
             // Migrate and seed the database during startup. Must be synchronous.
             try

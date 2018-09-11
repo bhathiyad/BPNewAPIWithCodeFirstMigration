@@ -25,8 +25,8 @@ namespace BPNew.Service.Models
         public string Subject { get; set; }
         [StringLength(500)]
         public string Description { get; set; }
-        [StringLength(500)]
-        public string Description2 { get; set; }
+        //[StringLength(500)]
+        //public string Description2 { get; set; }
         public byte Status { get; set; }
         public bool IsTentative { get; set; }
         public byte MeetingType { get; set; }

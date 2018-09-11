@@ -77,6 +77,7 @@ namespace BPNew.Service.Models
         public virtual DbSet<UserDevices> UserDevices { get; set; }
         public virtual DbSet<UserDsdetails> UserDsdetails { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Token> Tokens { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -6,18 +6,18 @@ namespace BPNew.Service.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "Description2",
-                table: "Meetings",
-                maxLength: 500,
-                nullable: true);
+            //migrationBuilder.AddColumn<string>(
+            //    name: "Description2",
+            //    table: "Meetings",
+            //    maxLength: 500,
+            //    nullable: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "Description2",
-                table: "Meetings");
+            //migrationBuilder.DropColumn(
+            //    name: "Description2",
+            //    table: "Meetings");
         }
     }
 }

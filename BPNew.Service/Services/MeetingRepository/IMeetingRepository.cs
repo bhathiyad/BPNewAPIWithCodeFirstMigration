@@ -1,4 +1,5 @@
-﻿using BPNewBO.Meeting;
+﻿using BPNew.Service.Models;
+using BPNewBO.Meeting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace BPNew.Service.Services.MeetingRepository
     public interface IMeetingRepository
     {
         Task<List<MeetingModel>> GetMeetings();
+        Task<MeetingModel> CreateMeeting(Meetings meetingEntity);  
     }
 }
